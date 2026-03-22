@@ -12,7 +12,7 @@ api.interceptors.response.use(res => res,async(error)=>{
         originalRequest._retry = true;
 
         try{
-            await axios.get('http://localhost:3000/api/auth/refresh',{withCredentials : true});
+            await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/refresh`,{withCredentials : true});
 
             return api(originalRequest);
             

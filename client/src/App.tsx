@@ -6,6 +6,7 @@ import PublicRoute from "./routes/PublicRoutes"
 import { useEffect } from "react"
 import { checkAuth } from "./context/CheckAuth"
 import { useAuth } from "./context/AuthContext"
+import ProtectedRoute from "./routes/ProtectedRoute"
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
       </Routes>

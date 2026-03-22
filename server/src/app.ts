@@ -8,7 +8,7 @@ import env from './config/env';
 const app = express();
 
 app.use(cors({
-    origin: env.CLIENT_URL,
+    origin: env.CLIENT_URL.toString(),
     credentials:true
 }));
 app.use(express.json());
