@@ -16,6 +16,7 @@ const env = {
     JWT_SECRET : getEnv('JWT_SECRET'),
     MONGO_URI : getEnv('MONGO_URI'),
     PORT : getEnv('PORT'),
+    CLIENT_URL : getEnv('CLIENT_URL'),
     OPEN_ROUTER_KEY : getEnv('OPEN_ROUTER_KEY')
 }
 

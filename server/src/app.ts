@@ -3,13 +3,12 @@ import cookieParser from 'cookie-parser'
 import serverRoutes from './routes'
 import hanldeError from './middleware/error.middleware';
 import cors from 'cors';
-import { env } from 'node:process';
-import connectDb from './config/db';
+import env from './config/env';
 
 const app = express();
 
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin: env.CLIENT_URL,
     credentials:true
 }));
 app.use(express.json());
