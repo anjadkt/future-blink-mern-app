@@ -1,6 +1,6 @@
 
 import { Response , Request, NextFunction } from "express";
-import { register , login , checkToken , logout } from "../services/auth.services";
+import { register , login , checkToken , logout , checkAuth } from "../services/auth.services";
 import { accessToken, refreshToken } from "../utils/tokens";
 
 
@@ -56,6 +56,19 @@ export const handleLogout = async (req:Request, res:Response, next:NextFunction)
         res.clearCookie("access_token");
         res.clearCookie("refresh_token");
         return res.status(200).json({message : "User logged out successfully"});
+    }catch(error){
+        next(error);
+    }
+}
+
+export const handleAuth = async (req:Request, res:Response, next:NextFunction) => {
+    try{
+        const result = await checkAuth(req.user?._id || "");
+
+        res.status(200).json({
+            message : "user found",
+            userData : result
+        });
     }catch(error){
         next(error);
     }

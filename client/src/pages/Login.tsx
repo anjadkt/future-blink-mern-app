@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { baseSchema } from '../validations/auth.validation';
 import axios from 'axios';
 import api from '../services/axios';
+import { checkAuth } from '../context/CheckAuth';
 
 export type ErrorType = {
   email ?: string;
@@ -42,6 +43,7 @@ export default function Login() {
 
     try{
       await api.post('/auth/login',form);
+      await checkAuth();
       navigate('/');
     }catch(error){
       if(axios.isAxiosError(error)){

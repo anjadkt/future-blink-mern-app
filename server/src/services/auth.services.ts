@@ -54,3 +54,9 @@ export const logout = async (id:string) => {
     const user = await User.findByIdAndUpdate(id,{$set : {refreshToken : ""}});
     if(!user)throw new ApiError(404,"User not found!");
 }
+
+export const checkAuth = async (id:string) => {
+    const user = await User.findById(id).populate("chats").lean();
+    if(!user)throw new ApiError(404,"User not found!");
+    return user ;
+}
