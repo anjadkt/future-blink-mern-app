@@ -17,6 +17,10 @@ export default function Home (){
     const [running,setRunning] = useState(false);
     const [saving,setSaving] = useState(false);
 
+    const handleClear = () => {
+        setInput("");
+        setOutput("");
+    }
 
     const handleRun = async (value?: string) => {
         const text = value || input;
@@ -45,8 +49,7 @@ export default function Home (){
         setSaving(true);
         try{
             await api.post('/ai/save',chat);
-            setInput("");
-            setOutput("");
+            handleClear();
         }catch(error){
             console.log(error)
         }finally{
@@ -76,6 +79,7 @@ export default function Home (){
                 value: output,
                 onRun: handleRun,
                 onSave: handleSave,
+                onClear : handleClear,
                 saving,
                 running
             },
