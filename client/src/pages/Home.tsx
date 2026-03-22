@@ -4,7 +4,6 @@ import InputNode from '../components/InputNode';
 import OutputNode from '../components/OutputNode';
 import { useState } from 'react';
 import api from '../services/axios';
-import { useAuth } from '../context/AuthContext';
 
 const nodeTypes = {
   inputNode: InputNode,
@@ -45,7 +44,7 @@ export default function Home (){
 
         setSaving(true);
         try{
-            const {data} = await api.post('/ai/save',chat);
+            await api.post('/ai/save',chat);
             setInput("");
             setOutput("");
         }catch(error){
