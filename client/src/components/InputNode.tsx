@@ -1,11 +1,15 @@
 import { Handle, Position } from "reactflow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function InputNode({ data }: any) {
   const [value, setValue] = useState("");
 
+  useEffect(()=>{
+    setValue(data.input)
+  },[data.input]);
+
   return (
-    <div className="bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-xl p-4 shadow-[0_0_20px_-5px_rgba(217,70,239,0.3)] max-w-[220px] font-sans">
+    <div className="bg-gray-900/80 backdrop-blur-xl border border-gray-800 rounded-xl p-4 shadow-[0_0_20px_-5px_rgba(217,70,239,0.3)] max-w-[250px] font-sans">
       <div className="text-[10px] uppercase tracking-widest text-fuchsia-400 font-bold mb-3 border-b border-gray-800 pb-2">
         Ask Me 
       </div>
@@ -23,9 +27,10 @@ export default function InputNode({ data }: any) {
 
         <button 
           onClick={() => data.onRun?.(value)}
-          className="w-full py-2 px-4 bg-gradient-to-r from-fuchsia-600 to-cyan-600 hover:from-fuchsia-500 hover:to-cyan-500 text-white text-xs font-bold rounded-lg shadow-lg transition-all transform active:scale-95"
+          disabled={data.running}
+          className="w-full py-2 px-4 cursor-pointer bg-gradient-to-r from-fuchsia-600 to-cyan-600 hover:from-fuchsia-500 hover:to-cyan-500 text-white text-xs font-bold rounded-lg shadow-lg transition-all transform active:scale-95"
         >
-          EXECUTE FLOW
+          {data.running ? <div className="animate-pulse">Asking..</div> : "EXECUTE FLOW"}
         </button>
       </div>
 

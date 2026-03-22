@@ -3,6 +3,8 @@ import "reactflow/dist/style.css"
 import InputNode from '../components/InputNode';
 import OutputNode from '../components/OutputNode';
 import { useState } from 'react';
+import api from '../services/axios';
+import { useAuth } from '../context/AuthContext';
 
 const nodeTypes = {
   inputNode: InputNode,
@@ -13,23 +15,44 @@ const nodeTypes = {
 export default function Home (){
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
+    const [running,setRunning] = useState(false);
+    const [saving,setSaving] = useState(false);
 
 
     const handleRun = async (value?: string) => {
         const text = value || input;
 
-        const result = text.toUpperCase();
+        if(!text?.trim() || text.length > 500)return;
 
-        setOutput(result);
+        try{
+            setRunning(true);
+            const {data} = await api.post('/ai/ask',{question : text});
+            setOutput(data.response);
+        }catch(error){
+            console.log(error);
+        }finally{
+            setRunning(false);
+        }
     };
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const chat = {
-            input,
-            output
+            question : input,
+            response : output
         };
 
+        if(!input.trim() || !output?.trim())return ;
 
+        setSaving(true);
+        try{
+            const {data} = await api.post('/ai/save',chat);
+            setInput("");
+            setOutput("");
+        }catch(error){
+            console.log(error)
+        }finally{
+            setSaving(false);
+        }
     };
 
 
@@ -37,21 +60,25 @@ export default function Home (){
         {
             id: "1",
             type: "inputNode",
-            position: { x: 100, y: 200 },
+            position: { x: 350, y: 200 },
             data: {
                 onChange: setInput,
                 onRun: handleRun,
                 onSave: handleSave,
+                running,
+                input
             },
         },
         {
             id: "2",
             type: "outputNode",
-            position: { x: 400, y: 200 },
+            position: { x: 700, y: 200 },
             data: {
                 value: output,
                 onRun: handleRun,
                 onSave: handleSave,
+                saving,
+                running
             },
         },
     ];
@@ -76,6 +103,7 @@ export default function Home (){
             />
             
             </ReactFlow>
+
         </div>
     );
 

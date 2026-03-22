@@ -2,8 +2,9 @@ import { createContext, useContext } from "react";
 
 type AuthContextType = {
   user: {
+    _id : string ;
     email : string;
-    messages : {
+    chats : {
       userId : string;
       question : string;
       response : string

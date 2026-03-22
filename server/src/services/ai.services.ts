@@ -1,5 +1,6 @@
 import env from "../config/env"
 import Chat from "../models/chats.modal"
+import User from "../models/user.modal"
 import { ApiError } from "../utils/apiError"
 import axios from 'axios'
 
@@ -58,6 +59,8 @@ export const saveAiService = async (data:{question:string,response:string},userI
         response:data.response,
         userId
     });
+
+    await User.findOneAndUpdate({_id : userId},{$push : {chats : chat._id}});
 
     return chat;
 }
