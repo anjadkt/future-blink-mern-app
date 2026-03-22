@@ -15,7 +15,8 @@ const env = {
     SALT : getEnv('SALT'),
     JWT_SECRET : getEnv('JWT_SECRET'),
     MONGO_URI : getEnv('MONGO_URI'),
-    PORT : getEnv('PORT')
+    PORT : getEnv('PORT'),
+    OPEN_ROUTER_KEY : getEnv('OPEN_ROUTER_KEY')
 }
 
 export default env;
