@@ -4,6 +4,7 @@ import { baseSchema } from '../validations/auth.validation';
 import axios from 'axios';
 import api from '../services/axios';
 import { checkAuth } from '../context/CheckAuth';
+import { useAuth } from '../context/AuthContext';
 
 export type ErrorType = {
   email ?: string;
@@ -18,6 +19,7 @@ export default function Login() {
   });
 
   const [error,setError] = useState<ErrorType>();
+  const {login} = useAuth()
 
   const navigate = useNavigate();
 
@@ -43,7 +45,7 @@ export default function Login() {
 
     try{
       await api.post('/auth/login',form);
-      await checkAuth();
+      await checkAuth(login);
       navigate('/');
     }catch(error){
       if(axios.isAxiosError(error)){

@@ -1,8 +1,7 @@
 import api from "../services/axios"
-import { useAuth } from "./AuthContext";
 
-export const checkAuth = async () => {
-  const {login} = useAuth();
+export const checkAuth = async (login:(data:any)=>void) => {
+  
   try{
     const {data} = await api.get('/auth/me');
     login(data.userData);

@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 export default function PublicRoute ({children}:{children:ReactNode}){
   const {user} = useAuth();
 
-  if(user) <Navigate to={'/'} replace />
+  if(user) return <Navigate to={'/'} replace /> ;
 
   return children ;
 }

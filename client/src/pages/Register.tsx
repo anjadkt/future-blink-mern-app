@@ -5,6 +5,7 @@ import axios from 'axios';
 import api from '../services/axios';
 import type { ErrorType } from './Login';
 import { checkAuth } from '../context/CheckAuth';
+import { useAuth } from '../context/AuthContext';
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -15,6 +16,7 @@ export default function Register() {
 
   const [error, setError] = useState<ErrorType>();
   const navigate = useNavigate();
+  const {login} = useAuth();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setForm((pre) => ({
@@ -42,7 +44,7 @@ export default function Register() {
 
     try {
       await api.post('/auth/register', form);
-      await checkAuth();
+      await checkAuth(login);
       navigate('/login');
     } catch (err) {
       if (axios.isAxiosError(err)) {

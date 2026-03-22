@@ -56,7 +56,10 @@ export const logout = async (id:string) => {
 }
 
 export const checkAuth = async (id:string) => {
-    const user = await User.findById(id).populate("chats").lean();
+    const user = await User.findById(id)
+    .populate("chats")
+    .select("_id email chats")
+    .lean();
     if(!user)throw new ApiError(404,"User not found!");
     return user ;
 }

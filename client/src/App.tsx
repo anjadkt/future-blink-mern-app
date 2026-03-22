@@ -5,11 +5,14 @@ import Register from "./pages/Register"
 import PublicRoute from "./routes/PublicRoutes"
 import { useEffect } from "react"
 import { checkAuth } from "./context/CheckAuth"
+import { useAuth } from "./context/AuthContext"
 
 function App() {
 
+  const {login} = useAuth();
+
   useEffect(() => {
-    checkAuth();
+    checkAuth(login);
   },[])
 
   return (
