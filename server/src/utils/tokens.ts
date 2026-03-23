@@ -10,20 +10,23 @@ type CookieOptions = {
     secure : boolean;
     sameSite : 'strict' | 'lax' | 'none';
     maxAge : number;
+    partitioned : boolean
 }
  
 const ACCESS_OPTIONS : CookieOptions = {
     httpOnly : true,
     secure : env.NODE_ENV === 'production',
-    sameSite : 'strict',
-    maxAge : 15 * 60 * 1000
+    sameSite : 'none',
+    maxAge : 15 * 60 * 1000,
+    partitioned : true
 }
 
 const REFRESH_OPTIONS : CookieOptions = {
     httpOnly : true,
     secure : env.NODE_ENV === 'production',
-    sameSite : 'strict',
-    maxAge : 7 * 24 * 60 * 60 * 1000
+    sameSite : 'none',
+    maxAge : 7 * 24 * 60 * 60 * 1000,
+    partitioned : true
 }
 
 export const accessToken = (

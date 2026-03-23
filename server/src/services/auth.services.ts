@@ -39,7 +39,7 @@ export const login = async (payload : {email : string, password : string}):Promi
 }
 
 export const checkToken = async (token:string) => {
-    if(!token?.trim())throw new ApiError(400,"token not found!");
+    if(!token?.trim())throw new ApiError(403,"token not found!");
 
     const decoded = jwt.verify(token,env.JWT_SECRET) as UserType
     if(!decoded)throw new ApiError(403,"Invalid token!");
