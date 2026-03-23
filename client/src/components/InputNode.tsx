@@ -25,13 +25,17 @@ export default function InputNode({ data }: any) {
           placeholder="Type prompt..."
         />
 
-        <button 
-          onClick={() => data.onRun?.(value)}
-          disabled={data.running}
-          className="w-full py-2 px-4 cursor-pointer bg-gradient-to-r from-fuchsia-600 to-cyan-600 hover:from-fuchsia-500 hover:to-cyan-500 text-white text-xs font-bold rounded-lg shadow-lg transition-all transform active:scale-95"
-        >
-          {data.running ? <div className="animate-pulse">Asking..</div> : "EXECUTE FLOW"}
-        </button>
+        {
+          value && (
+            <button 
+              onClick={() => data.onRun?.(value)}
+              disabled={data.running}
+              className="w-full py-2 px-4 cursor-pointer bg-gradient-to-r from-fuchsia-600 to-cyan-600 hover:from-fuchsia-500 hover:to-cyan-500 text-white text-xs font-bold rounded-lg shadow-lg transition-all transform active:scale-95"
+            >
+              {data.running ? <div className="animate-pulse">Asking..</div> : "EXECUTE FLOW"}
+            </button>
+          )
+        }
       </div>
 
       <Handle 
