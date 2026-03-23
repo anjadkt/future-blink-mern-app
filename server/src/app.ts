@@ -14,10 +14,6 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
-app.get('/health', (req,res) => {
-    return res.status(200).json({message : "Server is running"});
-});
-
 app.use('/api', serverRoutes );
 
 app.use(hanldeError);
